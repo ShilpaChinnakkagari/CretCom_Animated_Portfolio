@@ -144,11 +144,10 @@ const Diary = () => {
       <div className="relative z-10 flex items-center justify-center min-h-screen perspective-1000">
         <div
           className={`cursor-pointer transition-all duration-1000 ${
-            isOpening ? "opacity-0 scale-50" : "opacity-100 scale-100"
+            isOpening ? "opacity-0" : "opacity-100"
           }`}
           style={{ 
             animation: !isOpening ? "diary-float 6s ease-in-out infinite" : "none",
-            transform: isOpening ? "scale(0.8) rotateY(90deg)" : "none",
           }}
           onClick={!isOpening ? openDiary : undefined}
         >
@@ -181,15 +180,39 @@ const Diary = () => {
           />
 
           <div className="relative preserve-3d" style={{ perspective: "1200px" }}>
-            {/* Front cover with opening animation */}
+            {/* Back cover (visible during opening) */}
+            {isOpening && (
+              <div
+                className="absolute w-[450px] h-[600px] sm:w-[550px] sm:h-[700px] rounded-lg"
+                style={{
+                  background: "linear-gradient(145deg, hsl(25 40% 12%), hsl(25 40% 8%))",
+                  boxShadow: "0 20px 60px hsl(0 0% 0% / 0.5)",
+                  zIndex: 5,
+                }}
+              >
+                <div className="absolute inset-4 rounded" style={{ background: "linear-gradient(135deg, #e8ddd0, #ddd0c0)" }}>
+                  <div className="p-8 opacity-60">
+                    <p className="font-dancing text-lg" style={{ color: "#6a7a95" }}>February 16, 2026</p>
+                    <h2 className="font-cinzel text-xl mt-2" style={{ color: "#1a2235" }}>The Beginning</h2>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Front cover with realistic opening animation */}
             <div
-              className="relative w-[450px] h-[600px] sm:w-[550px] sm:h-[700px] rounded-lg diary-shadow"
+              className={`relative w-[450px] h-[600px] sm:w-[550px] sm:h-[700px] rounded-lg ${
+                isOpening ? "" : "diary-shadow"
+              }`}
               style={{
                 background: "linear-gradient(145deg, hsl(25 40% 14%), hsl(25 40% 10%))",
-                boxShadow: `0 20px 60px hsl(0 0% 0% / 0.6), 0 0 120px hsl(42 100% 65% / 0.45), 0 0 200px hsl(42 95% 60% / 0.25), 0 0 300px hsl(42 90% 55% / 0.12), inset 0 1px 0 hsl(25 35% 18% / 0.3)`,
-                transformStyle: "preserve-3d",
-                animation: isOpening ? "diary-open 0.8s ease-in-out forwards" : "none",
+                boxShadow: isOpening
+                  ? "0 10px 40px hsl(0 0% 0% / 0.5)"
+                  : `0 20px 60px hsl(0 0% 0% / 0.6), 0 0 120px hsl(42 100% 65% / 0.45), 0 0 200px hsl(42 95% 60% / 0.25), 0 0 300px hsl(42 90% 55% / 0.12), inset 0 1px 0 hsl(25 35% 18% / 0.3)`,
                 transformOrigin: "left center",
+                animation: isOpening ? "book-open-realistic 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards" : "none",
+                transformStyle: "preserve-3d",
+                zIndex: 10,
               }}
             >
               <div className="absolute inset-0 rounded-lg opacity-10" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 8px, hsl(25 30% 20%) 8px, hsl(25 30% 20%) 9px)" }} />
@@ -208,9 +231,11 @@ const Diary = () => {
                 <div className="text-3xl mt-8 tracking-[0.5em]" style={{ color: "hsl(42 78% 55% / 0.7)" }}>✦ ✦ ✦</div>
               </div>
 
-              <div className="absolute bottom-6 left-0 right-0 text-center">
-                <span className="font-mono-space text-xs tracking-[0.4em] uppercase animate-pulse" style={{ color: "hsl(42 78% 55% / 0.5)" }}>Click to Open</span>
-              </div>
+              {!isOpening && (
+                <div className="absolute bottom-6 left-0 right-0 text-center">
+                  <span className="font-mono-space text-xs tracking-[0.4em] uppercase animate-pulse" style={{ color: "hsl(42 78% 55% / 0.5)" }}>Click to Open</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -366,18 +391,31 @@ const Diary = () => {
       </div>
 
       <style>{`
-        @keyframes diary-open {
+        @keyframes book-open-realistic {
           0% { 
             transform: rotateY(0deg);
-            opacity: 1;
+            box-shadow: 0 20px 60px hsl(0 0% 0% / 0.6);
           }
-          50% { 
-            transform: rotateY(45deg);
-            opacity: 0.8;
+          20% { 
+            transform: rotateY(-15deg);
+            box-shadow: 0 20px 70px hsl(0 0% 0% / 0.7);
+          }
+          40% { 
+            transform: rotateY(-45deg);
+            box-shadow: 0 20px 80px hsl(0 0% 0% / 0.8);
+          }
+          60% { 
+            transform: rotateY(-75deg);
+            box-shadow: 0 15px 70px hsl(0 0% 0% / 0.7);
+          }
+          80% { 
+            transform: rotateY(-100deg);
+            box-shadow: 0 10px 50px hsl(0 0% 0% / 0.5);
           }
           100% { 
-            transform: rotateY(90deg);
+            transform: rotateY(-130deg);
             opacity: 0;
+            box-shadow: 0 5px 30px hsl(0 0% 0% / 0.3);
           }
         }
 
@@ -422,26 +460,30 @@ const Diary = () => {
           }
         }
 
-        @keyframes particle-dissolve {
-          0% { opacity: 0; transform: scale(0); }
-          20% { opacity: 1; transform: scale(1.5); }
-          100% { opacity: 0; transform: scale(0) translateY(-100px) translateX(${Math.random() > 0.5 ? '' : '-'}50px); }
-        }
         @keyframes diary-float {
           0%, 100% { transform: translateY(0) rotateX(2deg) rotateY(-1deg); }
           50% { transform: translateY(-15px) rotateX(-1deg) rotateY(2deg); }
         }
+
         @keyframes glow-pulse {
           0%, 100% { box-shadow: 0 0 30px hsl(42 90% 60% / 0.5), 0 0 80px hsl(42 85% 55% / 0.3), 0 0 140px hsl(42 80% 50% / 0.15); }
           50% { box-shadow: 0 0 50px hsl(42 90% 65% / 0.7), 0 0 120px hsl(42 85% 60% / 0.4), 0 0 200px hsl(42 80% 55% / 0.25); }
         }
+
         @keyframes gold-shimmer {
           0% { background-position: -200% center; }
           100% { background-position: 200% center; }
         }
+
         @keyframes page-content-appear {
           0% { opacity: 0; transform: translateY(20px); }
           100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes particle-dissolve {
+          0% { opacity: 0; transform: scale(0); }
+          20% { opacity: 1; transform: scale(1.5); }
+          100% { opacity: 0; transform: scale(0) translateY(-100px) translateX(${Math.random() > 0.5 ? '' : '-'}50px); }
         }
       `}</style>
     </div>
@@ -449,14 +491,13 @@ const Diary = () => {
 }
 
 // LEFT page content — all with typewriter
-// LEFT page content — all with typewriter
 function renderPage(page: number, pageKey: number) {
   const ink = "#1a2235";
   const inkMed = "#3a4a65";
   const inkLight = "#6a7a95";
   const gold = "#b8860b";
 
-  // 👇 PUT THE DATE FUNCTION HERE 👇
+  // Dynamic date function
   const getFormattedDate = (format: 'long' | 'short' | 'numeric') => {
     const date = new Date();
     
@@ -494,7 +535,6 @@ function renderPage(page: number, pageKey: number) {
     case 0:
       return (
         <div style={pageBase} key={`p0-${pageKey}`}>
-          {/* 👇 AND USE IT HERE 👇 */}
           <TypewriterText 
             text={getFormattedDate('long')} 
             className="font-dancing text-base mb-2 block" 
