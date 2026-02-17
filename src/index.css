@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 25% 5%;
+    --foreground: 40 50% 90%;
+
+    --card: 230 20% 8%;
+    --card-foreground: 40 50% 90%;
+
+    --popover: 230 20% 8%;
+    --popover-foreground: 40 50% 90%;
+
+    --primary: 42 78% 55%;
+    --primary-foreground: 230 25% 5%;
+
+    --secondary: 260 60% 30%;
+    --secondary-foreground: 40 50% 95%;
+
+    --muted: 230 15% 15%;
+    --muted-foreground: 220 10% 55%;
+
+    --accent: 190 80% 45%;
+    --accent-foreground: 230 25% 5%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 42 30% 25%;
+    --input: 230 15% 18%;
+    --ring: 42 78% 55%;
+
+    --radius: 0.5rem;
+
+    /* Cosmic palette */
+    --cosmic-deep: 240 30% 3%;
+    --cosmic-nebula: 270 60% 20%;
+    --cosmic-teal: 180 70% 35%;
+    --cosmic-magenta: 310 70% 40%;
+    --cosmic-blue: 220 80% 50%;
+    --cosmic-star: 45 100% 85%;
+
+    /* Diary palette */
+    --diary-leather: 25 40% 12%;
+    --diary-leather-light: 25 35% 18%;
+    --diary-page: 38 30% 88%;
+    --diary-page-dark: 35 20% 78%;
+    --diary-ink: 220 30% 12%;
+    --diary-gold: 42 78% 55%;
+    --diary-gold-glow: 42 90% 65%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Cormorant Garamond', serif;
+    overflow: hidden;
+  }
+}
+
+/* ===== COSMIC BACKGROUND ===== */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes float-particle {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+}
+
+@keyframes nebula-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes cosmic-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes shooting-star {
+  0% { transform: translateX(0) translateY(0); opacity: 1; width: 0; }
+  30% { opacity: 1; width: 80px; }
+  100% { transform: translateX(300px) translateY(200px); opacity: 0; width: 0; }
+}
+
+/* ===== DIARY ANIMATIONS ===== */
+@keyframes diary-float {
+  0%, 100% { transform: translateY(0) rotateX(2deg) rotateY(-1deg); }
+  50% { transform: translateY(-15px) rotateX(-1deg) rotateY(2deg); }
+}
+
+@keyframes diary-enter {
+  0% { opacity: 0; transform: scale(0.5) rotateY(-30deg); }
+  60% { opacity: 1; transform: scale(1.05) rotateY(5deg); }
+  100% { opacity: 1; transform: scale(1) rotateY(0); }
+}
+
+@keyframes gold-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes page-content-appear {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ink-write {
+  0% { width: 0; opacity: 0; }
+  100% { width: 100%; opacity: 1; }
+}
+
+@keyframes skill-pop {
+  0% { transform: scale(0) rotateX(45deg); opacity: 0; }
+  60% { transform: scale(1.15) rotateX(-5deg); opacity: 1; }
+  100% { transform: scale(1) rotateX(0); opacity: 1; }
+}
+
+@keyframes logo-spin {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes page-flip-right {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(-180deg); }
+}
+
+@keyframes page-flip-left {
+  0% { transform: rotateY(-180deg); }
+  100% { transform: rotateY(0deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 30px hsl(42 90% 60% / 0.5), 0 0 80px hsl(42 85% 55% / 0.3), 0 0 140px hsl(42 80% 50% / 0.15); }
+  50% { box-shadow: 0 0 50px hsl(42 90% 65% / 0.7), 0 0 120px hsl(42 85% 60% / 0.4), 0 0 200px hsl(42 80% 55% / 0.25); }
+}
+
+@keyframes typewriter {
+  from { max-width: 0; }
+  to { max-width: 100%; }
+}
+
+@keyframes blink-caret {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: hsl(42 78% 55% / 0.6); }
+}
+
+@keyframes book-open-realistic {
+  0% { transform: rotateY(0deg); }
+  20% { transform: rotateY(-8deg); }
+  40% { transform: rotateY(-40deg); }
+  60% { transform: rotateY(-100deg); }
+  80% { transform: rotateY(-145deg); }
+  100% { transform: rotateY(-165deg); }
+}
+
+/* ===== UTILITY CLASSES ===== */
+@layer utilities {
+  .font-cinzel { font-family: 'Cinzel Decorative', serif; }
+  .font-cormorant { font-family: 'Cormorant Garamond', serif; }
+  .font-dancing { font-family: 'Dancing Script', cursive; }
+  .font-mono-space { font-family: 'Space Mono', monospace; }
+
+  .text-gold-shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--diary-gold)) 0%,
+      hsl(var(--diary-gold-glow)) 25%,
+      hsl(var(--cosmic-star)) 50%,
+      hsl(var(--diary-gold-glow)) 75%,
+      hsl(var(--diary-gold)) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gold-shimmer 4s linear infinite;
+  }
+
+  .diary-shadow {
+    box-shadow:
+      0 20px 60px hsl(0 0% 0% / 0.6),
+      0 0 40px hsl(var(--diary-gold) / 0.15),
+      inset 0 1px 0 hsl(var(--diary-leather-light) / 0.3);
+  }
+
+  .page-shadow {
+    box-shadow:
+      inset -3px 0 8px hsl(0 0% 0% / 0.15),
+      2px 0 4px hsl(0 0% 0% / 0.1);
+  }
+
+  .skill-tag-3d {
+    transform-style: preserve-3d;
+    animation: skill-pop 0.6s ease-out both;
+    box-shadow:
+      0 4px 0 hsl(var(--diary-gold) / 0.6),
+      0 8px 20px hsl(0 0% 0% / 0.3);
+  }
+
+  .spinning-logo {
+    animation: logo-spin 4s linear infinite;
+    transform-style: preserve-3d;
+  }
+
+  .floating-logo {
+    animation: logo-float 3s ease-in-out infinite;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
