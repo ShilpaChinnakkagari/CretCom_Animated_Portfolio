@@ -307,6 +307,13 @@ const Diary = () => {
           animation: "diary-appear 0.5s ease-out",
         }}
       >
+        {/* Page number indicator - TOP CENTER OVER DIARY */}
+        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-50">
+          <span className="font-mono-space text-sm text-diary-gold/80 bg-black/30 backdrop-blur-sm px-4 py-1 rounded-full border border-diary-gold/30">
+            Page {currentPage + 1} of {TOTAL_PAGES}
+          </span>
+        </div>
+
         {/* Diary with perspective for 3D flip */}
         <div
           className="relative w-full aspect-[4/3] rounded-lg overflow-hidden"
@@ -375,7 +382,7 @@ const Diary = () => {
           </div>
         </div>
 
-        {/* Page indicators - Now at bottom center */}
+        {/* Page indicators - at bottom center */}
         <div className="flex justify-center gap-3 mt-4">
           {Array.from({ length: TOTAL_PAGES }).map((_, i) => (
             <div 
@@ -676,21 +683,41 @@ function renderPage(page: number, pageKey: number) {
           <TypewriterText text="Connect" className="font-dancing text-base mb-2 block" style={{ color: inkLight }} delay={200} speed={40} as="p" />
           <TypewriterText text="Let's Build Together" className="font-cinzel text-xl sm:text-2xl mb-4 block" style={{ color: ink }} delay={600} speed={50} as="h2" />
           <div className="space-y-3" style={{ animation: "page-content-appear 0.5s ease-out 1.2s both" }}>
-            <a href="mailto:shilpa.aitech@gmail.com" className="flex items-center gap-3 p-3.5 rounded-lg" style={{ background: "rgba(26,34,53,0.05)", border: "1px solid rgba(26,34,53,0.1)", textDecoration: "none" }}>
+            <a 
+              href="mailto:shilpa.aitech@gmail.com" 
+              className="flex items-center gap-3 p-3.5 rounded-lg hover:bg-diary-gold/5 transition-all cursor-pointer" 
+              style={{ background: "rgba(26,34,53,0.05)", border: "1px solid rgba(26,34,53,0.1)", textDecoration: "none" }}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span className="text-xl">✉️</span>
               <div>
                 <p className="font-mono-space text-xs tracking-widest uppercase" style={{ color: inkLight }}>Email</p>
                 <p className="font-cormorant text-sm" style={{ color: inkMed }}>shilpa.aitech@gmail.com</p>
               </div>
             </a>
-            <div className="flex items-center gap-3 p-3.5 rounded-lg" style={{ background: "rgba(26,34,53,0.05)", border: "1px solid rgba(26,34,53,0.1)" }}>
+            
+            <a 
+              href="https://www.google.com/maps/search/Madanapalle,+Andhra+Pradesh" 
+              className="flex items-center gap-3 p-3.5 rounded-lg hover:bg-diary-gold/5 transition-all cursor-pointer" 
+              style={{ background: "rgba(26,34,53,0.05)", border: "1px solid rgba(26,34,53,0.1)", textDecoration: "none" }}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span className="text-xl">📍</span>
               <div>
                 <p className="font-mono-space text-xs tracking-widest uppercase" style={{ color: inkLight }}>Location</p>
                 <p className="font-cormorant text-sm" style={{ color: inkMed }}>Madanapalle, AP</p>
               </div>
-            </div>
-            <a href="#" className="flex items-center gap-3 p-3.5 rounded-lg" style={{ background: "rgba(26,34,53,0.05)", border: "1px solid rgba(26,34,53,0.1)", textDecoration: "none" }}>
+            </a>
+            
+            <a 
+              href="https://linkedin.com/in/shilpa-chinnakkagari56085341" 
+              className="flex items-center gap-3 p-3.5 rounded-lg hover:bg-diary-gold/5 transition-all cursor-pointer" 
+              style={{ background: "rgba(26,34,53,0.05)", border: "1px solid rgba(26,34,53,0.1)", textDecoration: "none" }}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span className="text-xl">💼</span>
               <div>
                 <p className="font-mono-space text-xs tracking-widest uppercase" style={{ color: inkLight }}>LinkedIn</p>
